@@ -15,8 +15,4 @@ Plataforma de leitura e publicação de histórias, desenvolvida como alternativ
 - **Biblioteca Pessoal** - Organize histórias em categorias
 - **Painel para Autores** - Estatísticas detalhadas de desempenho
 
-##  Tecnologias
-
-- Python 3.8+
-- Sem dependências externas (apenas bibliotecas padrão)
 
