@@ -1,0 +1,30 @@
+        ┌─────────────────────────────────────────┐
+        │               Usuario                    │
+        │  (classe base / superclasse)             │
+        ├─────────────────────────────────────────┤
+        │ - id, nome, email, senha                 │
+        │ - autores_seguidos, notificacoes         │
+        │ - preferencias_leitura                   │
+        ├─────────────────────────────────────────┤
+        │ + seguir_autor()                         │
+        │ + adicionar_notificacao()                │
+        │ + registrar_leitura()                    │
+        └─────────────────────────────────────────┘
+                              ▲
+                              │ herança
+              ┌───────────────┴───────────────┐
+              │                               │
+        ┌─────┴─────┐                   ┌─────┴─────┐
+        │  Leitor   │                   │   Autor   │
+        │(subclasse)│                   │(subclasse)│
+        ├───────────┤                   ├───────────┤
+        │ + lista_  │                   │ + historias│
+        │   leitura │                   │   _publicadas│
+        ├───────────┤                   │ + painel_  │
+        │ + avaliar()│                   │   estatisticas│
+        │ + comentar()                   ├───────────┤
+        └───────────┘                   │ + publicar│
+                                        │   _historia()│
+                                        │ + publicar│
+                                        │   _capitulo()│
+                                        └───────────┘
