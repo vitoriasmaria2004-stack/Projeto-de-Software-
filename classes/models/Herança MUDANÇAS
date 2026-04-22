@@ -1,0 +1,15 @@
+models/
+├── __init__.py
+├── usuario.py           ← Classe base abstrata
+├── leitor.py            ← Herda de Usuario (NOVO)
+├── autor.py             ← Herda de Usuario (MODIFICADO)
+├── usuario_factory.py   ← Factory para criar usuários (NOVO)
+├── historia.py          (igual)
+├── capitulo.py          (igual)
+├── avaliacao.py         (igual)
+├── comentario.py        (igual)
+├── biblioteca.py        (igual)
+├── notificacao.py       (igual)
+├── sistema_recomendacao.py (igual)
+├── sistema_status.py    (igual)
+└── preferencias_leitura.py (igual)
