@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StoryFlow | Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="login-body">
+    <div class="login-background"></div>
+    <main class="login-shell">
+        <section class="login-hero">
+            <p class="chip">StoryFlow</p>
+            <h1>Um login para ler e escrever.</h1>
+            <p>
+                Toda conta já nasce com perfil de leitor e autor ao mesmo tempo.
+                Entre para organizar sua biblioteca, acompanhar leitura e publicar histórias.
+            </p>
+            <div class="demo-card">
+                <span>Conta demo</span>
+                <strong>demo@storyflow.local</strong>
+                <strong>demo123</strong>
+            </div>
+            <button id="profile-photo-remove" class="btn-trash-action" type="button" title="Remover foto">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="3 6 5 6 21 6"></polyline>
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    <line x1="10" y1="11" x2="10" y2="17"></line>
+                    <line x1="14" y1="11" x2="14" y2="17"></line>
+                </svg>
+            </button>
+        </section>
+
+        <section class="auth-grid auth-grid-single">
+            <article class="panel">
+                <h2>Entrar</h2>
+                <form id="login-form" class="form-stack">
+                    <label>
+                        Email
+                        <input type="email" name="email" required autocomplete="email" placeholder="voce@email.com">
+                    </label>
+                    <label>
+                        Senha
+                        <input type="password" name="senha" required autocomplete="current-password" placeholder="••••••••">
+                    </label>
+                    <button type="submit" class="btn-primary">Acessar conta</button>
+                </form>
+                <p class="auth-switch">
+                    Não tem conta?
+                    <a href="/cadastro">Criar cadastro</a>
+                </p>
+            </article>
+        </section>
+    </main>
+
+    <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+    <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+</body>
+</html>

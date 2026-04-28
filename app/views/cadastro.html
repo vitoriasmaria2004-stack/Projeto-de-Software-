@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StoryFlow | Cadastro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="login-body">
+    <div class="login-background"></div>
+    <main class="login-shell">
+        <section class="login-hero">
+            <p class="chip">Novo usuário</p>
+            <h1>Crie sua conta em segundos.</h1>
+            <p>
+                Depois do cadastro, você já entra com perfil híbrido:
+                leitor e autor ao mesmo tempo, no mesmo painel.
+            </p>
+            <div class="demo-card">
+                <span>Dica</span>
+                <strong>Use um email válido</strong>
+                <strong>Você será redirecionado automaticamente após criar a conta</strong>
+            </div>
+        </section>
+
+        <section class="auth-grid auth-grid-single">
+            <article class="panel">
+                <h2>Criar conta</h2>
+                <form id="register-form" class="form-stack">
+                    <label>
+                        Nome
+                        <input type="text" name="nome" required autocomplete="name" placeholder="Seu nome">
+                    </label>
+                    <label>
+                        Email
+                        <input type="email" name="email" required autocomplete="email" placeholder="voce@email.com">
+                    </label>
+                    <label>
+                        Senha
+                        <input type="password" name="senha" required autocomplete="new-password" placeholder="Crie uma senha">
+                    </label>
+                    <button type="submit" class="btn-primary">Criar conta</button>
+                </form>
+                <p class="auth-switch">
+                    Já possui conta?
+                    <a href="/">Fazer login</a>
+                </p>
+            </article>
+        </section>
+    </main>
+
+    <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+    <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+</body>
+</html>

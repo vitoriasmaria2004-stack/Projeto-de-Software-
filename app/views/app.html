@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StoryFlow | {{ pagina|capitalize }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="app-body" data-page="{{ pagina }}">
+    <div class="app-layout">
+        <aside class="sidebar">
+            <a href="/app/voce" class="logo-badge user-avatar" id="sidebar-avatar" aria-label="Ir para início">
+                <span id="sidebar-avatar-letter">U</span>
+            </a>
+            <nav class="side-nav">
+                <a href="/app/inicio" class="nav-item {% if pagina == 'inicio' %}active{% endif %}">
+                    <span class="nav-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M3 10.5L12 3l9 7.5" />
+                            <path d="M5.5 9.8V20h13V9.8" />
+                        </svg>
+                    </span>
+                    Início
+                </a>
+                <a href="/app/historias" class="nav-item {% if pagina == 'historias' %}active{% endif %}">
+                    <span class="nav-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M4.5 5.5A2.5 2.5 0 0 1 7 3h12.5v16.5H7a2.5 2.5 0 0 0-2.5 2.5V5.5z" />
+                            <path d="M7 3v16.5" />
+                            <path d="M9.5 7.5h7" />
+                        </svg>
+                    </span>
+                    Histórias
+                </a>
+                <a href="/app/biblioteca" class="nav-item {% if pagina == 'biblioteca' %}active{% endif %}">
+                    <span class="nav-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M6 3h4v18H6z" />
+                            <path d="M10 3h4v18h-4z" />
+                            <path d="M14 5h4v16h-4z" />
+                        </svg>
+                    </span>
+                    Biblioteca
+                </a>
+                <a href="/app/escrever" class="nav-item {% if pagina == 'escrever' %}active{% endif %}">
+                    <span class="nav-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0 0-3L17.5 5a2.1 2.1 0 0 0-3 0L4 15.5V20z" />
+                            <path d="M13.5 6.5l4 4" />
+                        </svg>
+                    </span>
+                    Escrever
+                </a>
+            </nav>
+            <button id="logout-button" class="nav-logout" type="button">Sair</button>
+        </aside>
+
+        <div class="main-shell">
+            <header class="main-topbar">
+                <div>
+                    <h1><span id="header-user-name">Usuário</span></h1>
+                </div>
+                <div class="topbar-actions">
+                    <input id="global-search" type="search" placeholder="Buscar fanfics...">
+                    <button class="btn-primary writer-add-book-card" style="width: 140.6875px !important;">+
+                        Escrever</button>
+                </div>
+            </header>
+
+            <main class="screen-shell">
+                {% if pagina == 'inicio' %}
+                <section class="screen">
+
+
+                    <article class="card card-player" id="inicio-continuar">
+                        <p class="placeholder">Preparando leitura em andamento...</p>
+                    </article>
+
+                    <article class="card">
+                        <div class="section-head">
+                            <h2>Categorias</h2>
+                        </div>
+                        <div id="inicio-categorias" class="chip-row"></div>
+                    </article>
+
+                    <article class="card">
+                        <div class="section-head">
+                            <h2>Em alta</h2>
+                            <a href="/app/historias">Ver todas</a>
+                        </div>
+                        <div id="inicio-em-alta" class="story-grid"></div>
+                    </article>
+                </section>
+                {% endif %}
+
+                {% if pagina == 'historias' %}
+                <section class="screen">
+                    <article class="card">
+                        <div class="filters-row">
+                            <input id="historias-busca" type="search" placeholder="Buscar por título, sinopse, autor ou gênero">
+                            <select id="historias-genero">
+                                <option value="">Todos os gêneros</option>
+                            </select>
+                            <select id="historias-ordem">
+                                <option value="destaques">Destaques</option>
+                                <option value="recentes">Mais recentes</option>
+                                <option value="bem_avaliadas">Melhor avaliadas</option>
+                                <option value="maratona">Maratona</option>
+                            </select>
+                        </div>
+                    </article>
+
+                    <div class="grid-main">
+                        <article class="card">
+                            <div id="historias-grid" class="story-grid"></div>
+                        </article>
+                        <aside class="card" id="historia-detalhe">
+                            <p class="placeholder">Selecione uma história para ver capítulos e ler.</p>
+                        </aside>
+                    </div>
+                </section>
+                {% endif %}
+
+                {% if pagina == 'biblioteca' %}
+                <section class="screen">
+                    <article class="card summary-cards" id="biblioteca-resumo">
+                        <div class="summary-item">
+                            <span>Total</span>
+                            <strong id="sum-total">0</strong>
+                        </div>
+                        <div class="summary-item">
+                            <span>Lendo</span>
+                            <strong id="sum-lendo">0</strong>
+                        </div>
+                        <div class="summary-item">
+                            <span>Favoritos</span>
+                            <strong id="sum-favoritos">0</strong>
+                        </div>
+                        <div class="summary-item">
+                            <span>Concluídos</span>
+                            <strong id="sum-concluidos">0</strong>
+                        </div>
+                    </article>
+
+                    <div class="grid-main">
+                        <article class="card">
+                            <div class="section-head">
+                                <h2>Suas estantes</h2>
+                            </div>
+                            <div id="biblioteca-categorias" class="shelf-grid"></div>
+                        </article>
+                        <aside class="card">
+                            <div class="section-head">
+                                <h3>Continue lendo</h3>
+                            </div>
+                            <div id="biblioteca-progresso" class="stack-list"></div>
+                        </aside>
+                    </div>
+                </section>
+                {% endif %}
+
+                {% if pagina == 'escrever' %}
+                <section class="screen screen-write">
+                    <article class="card write-card write-library-card">
+                        <div class="section-head">
+                            <div>
+                                <h2>Biblioteca de criação</h2>
+                                <p class="muted">Clique na capa para gerenciar capítulos ou use + para criar outro livro.</p>
+                            </div>
+                        </div>
+                        <div id="autoria-historias" class="writer-shelf"></div>
+                    </article>
+                </section>
+                {% endif %}
+
+                {% if pagina == 'voce' %}
+                <section class="screen">
+                    <div class="grid-main">
+                        <article class="card">
+                            <p class="chip">Conta híbrida ativa</p>
+                            <div class="profile-head">
+                                <div id="profile-avatar" class="profile-avatar">U</div>
+                                <div>
+                                    <h2 id="perfil-nome">Usuário</h2>
+                                    <p id="perfil-email" class="muted">email@storyflow</p>
+                                </div>
+                                <button id="profile-photo-remove" class="btn-trash-action" type="button" title="Remover foto">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="3 6 5 6 21 6"></polyline>
+                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                        <line x1="10" y1="11" x2="10" y2="17"></line>
+                                        <line x1="14" y1="11" x2="14" y2="17"></line>
+                                    </svg>
+                                </button>
+                            </div>
+                            <p class="muted">
+                                No StoryFlow você é leitor e autor ao mesmo tempo: lê, comenta,
+                                salva na biblioteca e publica no mesmo perfil.
+                            </p>
+                            <form id="profile-photo-form" class="form-inline profile-photo-form" style="display: none !important">
+                                <input id="profile-photo-input" type="file" accept="image/png,image/jpeg,image/webp">
+                                <button type="submit" class="btn-primary" style="display:none">Salvar foto</button>
+                            </form>
+                            <p class="muted">Clique na sua foto para alterar.</p>
+                        
+                        </article>
+                        <aside class="card" id="voce-stats">
+                            <h3>Seu resumo</h3>
+                            <p class="placeholder">Carregando indicadores...</p>
+                        </aside>
+                    </div>
+
+                    <article class="card">
+                        <div class="section-head">
+                            <h3>Leituras ativas</h3>
+                        </div>
+                        <div id="voce-progresso" class="stack-list"></div>
+                    </article>
+
+                    <article class="card">
+                        <div class="section-head">
+                            <h3>Histórias que você publicou</h3>
+                        </div>
+                        <div id="voce-autoria" class="stack-list"></div>
+                    </article>
+                </section>
+                {% endif %}
+            </main>
+        </div>
+    </div>
+
+    <section id="writer-editor-modal" class="writer-editor-modal hidden" aria-hidden="true">
+        <div id="writer-editor-backdrop" class="writer-editor-backdrop"></div>
+        <article class="writer-editor-card">
+            <header class="writer-editor-head">
+                <div class="head-left">
+                    <div class="book-icon" aria-hidden="true">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 19.5C4 18.3954 5.11929 17.5 6.5 17.5H20" stroke="#9b59ff" stroke-width="1.6"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M20 6.5H6.5C5.11929 6.5 4 7.39543 4 8.5V19.5" stroke="#6c2bd9" stroke-width="1.6"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 id="writer-editor-title">Novo livro</h2>
+                        <p id="writer-editor-mode" class="muted">Tela 1 de 2: livro</p>
+                    </div>
+                </div>
+                <div class="writer-screen-tabs" role="tablist" aria-label="Fluxo de criação">
+                    <button id="writer-screen-book-btn" class="writer-screen-tab is-active" data-writer-screen="book" type="button" role="tab"
+                        aria-selected="true">Livro</button>
+                    <button id="writer-screen-chapters-btn" class="writer-screen-tab" data-writer-screen="chapters" type="button" role="tab"
+                        aria-selected="false">Capítulos</button>
+                </div>
+                <button id="writer-editor-close" class="writer-editor-close modal-close" type="button" aria-label="Fechar editor">×</button>
+            </header>
+
+            <div class="modal-body writer-editor-grid writer-two-screens">
+                <section class="writer-screen writer-screen-book is-active" data-writer-screen="book">
+                    <form id="nova-historia-form" class="form-stack writer-book-form">
+                        <input id="historia-edit-id" type="hidden" name="historia_id" value="">
+                        <label class="upload-area" for="story-cover-input" aria-label="Adicionar capa do livro">
+                            <div class="upload-inner" id="story-cover-preview">
+                                Adicionar capa do livro
+                                <div class="upload-hint">Clique para selecionar a imagem</div>
+                            </div>
+                            <input id="story-cover-input" type="file" accept="image/png,image/jpeg,image/webp" class="visually-hidden">
+                        </label>
+
+                        <label class="field">
+                            <span class="field-label">Upload EPUB (opcional)</span>
+                            <input id="story-file-input" type="file" accept=".epub,application/epub+zip">
+                            <small id="story-epub-meta-hint" class="muted">Se faltarem dados, o sistema usa os metadados do EPUB automaticamente.</small>
+                        </label>
+
+                        <label class="field">
+                            <span class="field-label">Título</span>
+                            <input id="story-title-input" type="text" name="titulo" required placeholder="Título do livro">
+                        </label>
+
+                        <label class="field">
+                            <span class="field-label">Gênero</span>
+                            <input id="story-genre-input" type="text" name="genero" placeholder="Fantasia, Romance, Mistério...">
+                        </label>
+
+                        <label class="field">
+                            <span class="field-label">Sinopse</span>
+                            <textarea name="sinopse" id="story-synopsis" required placeholder="Escreva uma sinopse curta..."></textarea>
+                        </label>
+
+                        <div class="writer-screen-actions">
+                            <button id="historia-submit" type="submit" class="btn-primary">Criar livro</button>
+                        </div>
+                    </form>
+                </section>
+
+                <section class="writer-screen writer-screen-chapters" data-writer-screen="chapters">
+                    <div class="writer-chapter-tabs" role="tablist" aria-label="Fluxo de capítulos">
+                        <button id="writer-chapter-list-btn" class="writer-chapter-tab is-active" data-writer-chapter-screen="list" type="button" role="tab" aria-selected="true">Capítulos</button>
+                    </div>
+
+                    <section class="writer-chapter-screen is-active" data-writer-chapter-screen="list">
+                        <article class="writer-chapter-panel">
+                            <div class="writer-chapter-list-head">
+                                <div>
+                                    <h3 id="capitulo-form-title">Capítulos</h3>
+                                    <p id="capitulo-form-hint" class="muted">Crie e edite os capítulos do seu livro.</p>
+                                </div>
+                            </div>
+                            <div id="writer-modal-chapters-list" class="writer-chapter-list"></div>
+                        </article>
+                    </section>
+
+                    <section class="writer-chapter-screen" data-writer-chapter-screen="editor">
+                        <form id="novo-capitulo-form" class="form-stack writer-chapter-form">
+                            <input id="capitulo-historia-id" type="hidden" name="historia_id" value="">
+                            <input id="capitulo-edit-id" type="hidden" name="capitulo_id" value="">
+                            <div class="chapter-format-toolbar" role="toolbar" aria-label="Formatar capítulo">
+                                <button type="button" class="chapter-format-btn" data-action="formatar-capitulo" data-format="bold" title="Negrito">B</button>
+                                <button type="button" class="chapter-format-btn" data-action="formatar-capitulo" data-format="italic" title="Itálico"><em>I</em></button>
+                                <button type="button" class="chapter-format-btn" data-action="formatar-capitulo" data-format="subtitle" title="Subtítulo">H</button>
+                                <button type="button" class="chapter-format-btn" data-action="formatar-capitulo" data-format="quote" title="Citação">"</button>
+                                <button type="button" class="chapter-format-btn" data-action="formatar-capitulo" data-format="list" title="Lista">•</button>
+                            </div>
+                            <label class="field">
+                                <span class="field-label">Título do capítulo</span>
+                                <input id="chapter-title" type="text" name="titulo" required placeholder="Título do capítulo">
+                            </label>
+                            <label class="field">
+                                <span class="field-label">Conteúdo</span>
+                                <textarea name="conteudo" id="editor-textarea" class="editor-area"
+                                    placeholder="Escreva o capítulo aqui..."></textarea>
+                            </label>
+                            <div class="writer-screen-actions">
+                                <button id="capitulo-back-list" class="btn-ghost" type="button">Voltar aos capítulos</button>
+                                <button id="capitulo-edit-cancel" class="btn-ghost hidden" type="button">Cancelar edição</button>
+                                <button id="capitulo-submit" class="btn-primary" type="submit">Adicionar capítulo</button>
+                            </div>
+                        </form>
+                    </section>
+                </section>
+            </div>
+        </article>
+    </section>
+        
+        <section id="reader-modal" class="reader-modal hidden" aria-hidden="true">
+            <div id="reader-modal-backdrop" class="reader-backdrop"></div>
+            <article class="reader-card">
+                <div class="reader-head">
+                    <button id="reader-close" class="reader-store-back" type="button" aria-label="Fechar leitura">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <div class="reader-titlebar">
+                        <p id="reader-story-name" class="reader-story-name">Leitura</p>
+                        <h2 id="reader-book-title-top" class="reader-book-title-top"></h2>
+                    </div>
+                <div class="reader-head-actions" aria-label="Ferramentas de leitura">
+                    <button id="reader-show-toc" class="reader-icon-btn" type="button" aria-label="Abrir sumário">☷</button>
+                    <button id="reader-show-settings" class="reader-icon-btn reader-aa-btn" type="button"
+                        aria-label="Ajustar fonte">Aa</button>
+                </div>
+                </div>
+<div class="reader-layout">
+    <section class="reader-page-stage">
+        <button id="reader-page-prev" class="page-dot left" aria-label="Página anterior">‹</button>
+        <article id="reader-content" class="reader-content"></article>
+        <button id="reader-page-next" class="page-dot right" aria-label="Próxima página">›</button>
+        <div class="reader-progress-footer">
+            <input id="reader-progress-range" type="range" min="1" max="1" value="1" aria-label="Progresso da leitura">
+            <p id="reader-page-counter">Local 1 de 1 • 0%</p>
+                    </div>
+                </section>
+                
+                <aside id="reader-side-panel" class="reader-side-panel is-collapsed" data-panel="settings">
+                    <button id="reader-panel-close" class="reader-panel-close" type="button" aria-label="Fechar painel">×</button>
+                
+                    <section class="reader-panel-section reader-panel-toc">
+                        <h3>Tabela de conteúdos</h3>
+                        <select id="reader-chapter-select" aria-label="Selecionar capítulo"></select>
+                        <div id="reader-toc-list" class="reader-toc-list"></div>
+                    </section>
+
+                    <section class="reader-panel-section reader-panel-settings">
+                        <div class="reader-settings">
+                            <div class="reader-setting-group">
+                                <p class="reader-setting-title">Fonte</p>
+                                <div id="reader-font-options" class="reader-option-grid reader-font-grid">
+                                    <button class="reader-option-card reader-font-card" data-reader-font="serif_classic" type="button" aria-pressed="false">
+                                        <span class="reader-font-preview">Aa</span>
+                                        <strong>Bookerly</strong>
+                                    </button>
+                                    <button class="reader-option-card reader-font-card" data-reader-font="georgia" type="button" aria-pressed="false">
+                                        <span class="reader-font-preview">Aa</span>
+                                        <strong>Ember</strong>
+                                    </button>
+                                    <button class="reader-option-card reader-font-card" data-reader-font="book" type="button" aria-pressed="false">
+                                        <span class="reader-font-preview">Aa</span>
+                                        <strong>Clássica</strong>
+                                    </button>
+                                    <button class="reader-option-card reader-font-card" data-reader-font="sans_clean" type="button" aria-pressed="false">
+                                        <span class="reader-font-preview">Aa</span>
+                                        <strong>OpenDyslexic</strong>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="reader-setting-group">
+                                <div class="reader-font-size-row">
+                                    <span>A</span>
+                                    <input id="reader-font-size" type="range" min="16" max="40" step="1" value="24" aria-label="Tamanho da letra">
+                                    <strong>A</strong>
+                                </div>
+                                <small id="reader-font-size-value" class="muted">24px</small>
+                            </div>
+                            <div class="reader-setting-group">
+                                <p class="reader-setting-title">Fundo</p>
+                                <div id="reader-bg-options" class="reader-option-grid reader-bg-options">
+                                    <button class="reader-option-card reader-bg-card" data-reader-bg="paper_yellow" type="button" aria-pressed="false">
+                                        <span class="reader-bg-swatch swatch-paper_yellow">•</span>
+                                    </button>
+                                    <button class="reader-option-card reader-bg-card" data-reader-bg="cream" type="button" aria-pressed="false">
+                                        <span class="reader-bg-swatch swatch-cream">•</span>
+                                    </button>
+                                    <button class="reader-option-card reader-bg-card" data-reader-bg="off_white" type="button" aria-pressed="false">
+                                        <span class="reader-bg-swatch swatch-off_white">•</span>
+                                    </button>
+                                    <button class="reader-option-card reader-bg-card" data-reader-bg="sepia_dark" type="button" aria-pressed="false">
+                                        <span class="reader-bg-swatch swatch-sepia_dark">•</span>
+                                    </button>
+                                    <button class="reader-option-card reader-bg-card" data-reader-bg="site_night" type="button" aria-pressed="false">
+                                        <span class="reader-bg-swatch swatch-site_night">•</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="reader-top-controls">
+                        <button id="reader-highlight" class="reader-tool-btn" type="button">Destacar seleção</button>
+                        <p id="reader-meta" class="muted">Capítulo</p>
+                        <p id="reader-predicted" class="muted">Tempo previsto: <strong id="reader-predicted-value">0:00</strong></p>
+                        <div class="reader-reading-time">
+                            <article class="time-display">
+                                <span class="time-label">Página</span>
+                                <strong id="reader-page-time" class="time-value">0:00</strong>
+                            </article>
+                            <article class="time-display">
+                                <span class="time-label">Capítulo</span>
+                                <strong id="reader-chapter-time" class="time-value">0:00</strong>
+                            </article>
+                            <article class="time-display">
+                                <span class="time-label">Livro</span>
+                                <strong id="reader-book-time" class="time-value">0:00</strong>
+                            </article>
+                            <article class="time-display">
+                                <span class="time-label">Sessão</span>
+                                <strong id="reader-session-time" class="time-value">0:00</strong>
+                            </article>
+                        </div>
+                    </div>
+
+                    <section class="reader-session-block">
+                        <div class="reader-session-head">
+                            <h4>Sessões</h4>
+                            <span id="reader-sessions-count" class="chip">0</span>
+                        </div>
+                        <div id="reader-sessions-list" class="reader-sessions-list"></div>
+                    </section>
+
+                    <details class="reader-marks-block">
+                        <summary>
+                            <span>Marcações</span>
+                            <span id="reader-marks-count" class="chip">0</span>
+                        </summary>
+                        <div id="reader-marks-list" class="reader-marks-list"></div>
+                    </details>
+
+                    <details class="comment-block is-secondary">
+                        <summary>
+                            <span>Comentários</span>
+                            <span id="reader-comments-count" class="chip">0</span>
+                        </summary>
+                        <div id="reader-comments" class="stack-list"></div>
+                        <form id="reader-comment-form" class="form-inline">
+                            <input id="reader-comment-input" type="text" placeholder="Escreva um comentário..." required>
+                            <button type="submit" class="btn-primary">Comentar</button>
+                        </form>
+                    </details>
+                </aside>
+            </div>
+        </article>
+    </section>
+
+    <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+
+    <script>
+        window.STORYFLOW_PAGE = "{{ pagina }}";
+    </script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Demo — Criar história (Modal)</title>
+  <link rel="stylesheet" href="/static/css/write-modal.css">
+</head>
+<body>
+  <div class="demo-backdrop">
+    <div class="modal-window" role="dialog" aria-labelledby="modal-title" aria-modal="true">
+      <header class="modal-head">
+        <div class="head-left">
+          <div class="book-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 19.5C4 18.3954 5.11929 17.5 6.5 17.5H20" stroke="#9b59ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 6.5H6.5C5.11929 6.5 4 7.39543 4 8.5V19.5" stroke="#6c2bd9" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h2 id="modal-title">Criar história</h2>
+        </div>
+        <button class="modal-close" aria-label="Fechar">✕</button>
+      </header>
+
+      <div class="modal-body">
+        <aside class="left-col">
+          <section class="step">
+            <div class="step-head"><span class="step-num">1</span><div class="step-meta">(Obrigatório) Capa e Título</div></div>
+            <label class="upload-area" for="cover-input" aria-label="Adicionar Capa da História (obrigatório)">
+              <div class="upload-inner">Adicionar Capa da História (obrigatório)
+                <div class="upload-hint">Arraste aqui ou clique para selecionar</div>
+              </div>
+              <input id="cover-input" type="file" accept="image/*" class="visually-hidden">
+            </label>
+            <label class="field">
+              <span class="field-label">Título da História</span>
+              <input id="story-title" type="text" placeholder="Título da história" />
+            </label>
+          </section>
+
+          <section class="step">
+            <div class="step-head"><span class="step-num">2</span><div class="step-meta">(Opcional) Sinopse</div></div>
+            <label class="field">
+              <span class="field-label">Sinopse da História (opcional)</span>
+              <textarea id="story-synopsis" placeholder="Escreva uma sinopse curta..."></textarea>
+            </label>
+          </section>
+        </aside>
+
+        <main class="right-col">
+          <section class="step step-right-step">
+            <div class="step-head"><span class="step-num">2</span><div class="step-meta">(Opcional) Sinopse</div></div>
+            <div class="mirror-synopsis">(continuação visual)</div>
+          </section>
+
+          <section class="step">
+            <div class="step-head"><span class="step-num">3</span><div class="step-meta">Editando Capítulo, Conteúdo do Capítulo</div></div>
+            <label class="field">
+              <span class="field-label">Título do Capítulo</span>
+              <input id="chapter-title" type="text" placeholder="Título do capítulo" />
+            </label>
+
+            <div class="editor">
+              <div class="toolbar" role="toolbar" aria-label="Barra de ferramentas de edição">
+                <button class="tb-btn" data-cmd="bold" title="Negrito"><strong>B</strong></button>
+                <button class="tb-btn" data-cmd="italic" title="Itálico"><em>I</em></button>
+                <button class="tb-btn" data-cmd="underline" title="Sublinhado"><u>U</u></button>
+                <button class="tb-btn" data-cmd="insertUnorderedList" title="Lista com marcadores">•</button>
+                <button class="tb-btn" data-cmd="insertOrderedList" title="Lista numerada">1.</button>
+                <select id="font-select" class="tb-select" title="Fonte">
+                  <option value="serif">Serif</option>
+                  <option value="Georgia">Georgia</option>
+                  <option value="Times New Roman">Times</option>
+                  <option value="sans-serif">Sans</option>
+                </select>
+                <label class="size-control">Tamanho
+                  <input id="font-size" type="range" min="12" max="40" value="24">
+                </label>
+              </div>
+
+              <div id="editor" class="editor-area" contenteditable="true" aria-label="Conteúdo do capítulo">
+                <p><strong>Capítulo 1:</strong> O Início... <strong>algumas palavras em negrito</strong> e <em>outras em itálico</em>.</p>
+              </div>
+
+              <div class="editor-actions">
+                <button id="add-chapter" class="btn-outline">Adicionar Novo Capítulo</button>
+                <button id="finish-chapter" class="btn-primary">Finalizar Capítulo</button>
+              </div>
+            </div>
+
+          </section>
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/js/write-modal.js"></script>
+</body>
+</html>
