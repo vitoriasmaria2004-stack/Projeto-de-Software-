@@ -16,7 +16,9 @@ class Usuario(ABC):
     Implementa princípios de POO:
     - Encapsulamento: Senha privada (__senha)
     - Herança: Subclasses devem implementar exibir_painel()
-    - Polimorfismo: Método abstrato exibir_painel()
+    - Polimorfismo: Método abstrato exibir_painel() 
+    Se o usuário for um Admin, o método exibir_painel() pode retornar um menu com botões de "Deletar Usuário".
+Se o usuário for um Leitor, o mesmo método exibir_painel() retornará "Lista de Livros Favoritos"
     """
     
     def __init__(self, id_usuario: str, nome: str, email: str, senha: str):
