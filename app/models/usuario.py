@@ -17,8 +17,7 @@ class Usuario(ABC):
     - Encapsulamento: Senha privada (__senha)
     - Herança: Subclasses devem implementar exibir_painel()
     - Polimorfismo: Método abstrato exibir_painel() 
-    Se o usuário for um Admin, o método exibir_painel() pode retornar um menu com botões de "Deletar Usuário".
-Se o usuário for um Leitor, o mesmo método exibir_painel() retornará "Lista de Livros Favoritos"
+    
     """
     
     def __init__(self, id_usuario: str, nome: str, email: str, senha: str):
@@ -34,6 +33,9 @@ Se o usuário for um Leitor, o mesmo método exibir_painel() retornará "Lista d
         """
         Contrato polimórfico: Subclasses DEVEM implementar.
         Cada tipo de usuário exibe seu painel de forma diferente.
+        -Em leitor.py: A classe Leitor implementa exibir_painel para mostrar informações de leitura.
+        -Em autor.py: A classe Autor implementa exibir_painel para mostrar informações de publicação.
+        
         """
         pass
 
