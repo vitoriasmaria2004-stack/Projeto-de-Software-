@@ -23,8 +23,8 @@ class Usuario(ABC):
         self.id_usuario = id_usuario
         self.nome = nome
         self.email = email
-        self.__senha = senha  # Privado: Encapsulamento
-        self._notificacoes: List['Notificacao'] = []  # Protegido
+        self.__senha = senha  # atributo PRIVADO (encapsulamento)
+        self._notificacoes: List['Notificacao'] = []    # atributo PROTEGIDO
         self.data_criacao = datetime.now()
 
     @abstractmethod
