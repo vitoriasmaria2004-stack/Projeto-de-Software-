@@ -9,7 +9,7 @@ from .usuario import Usuario
 from .biblioteca import Biblioteca
 
 
-class Leitor(Usuario):
+class Leitor(Usuario): # ← herança
     """
     Classe especializada em leitura.
     Implementa herança: herda de Usuario e implementa exibir_painel().
@@ -23,7 +23,7 @@ class Leitor(Usuario):
             email: Email único
             senha: Senha de acesso
         """
-        super().__init__(id_usuario, nome, email, senha)
+        super().__init__(id_usuario, nome, email, senha) 
         self.biblioteca = Biblioteca(self)
         self._avaliacoes: List['Avaliacao'] = []
         self._comentarios: List['Comentario'] = []
