@@ -9,7 +9,8 @@ Plataforma web de leitura e autoria com conta híbrida (todo usuário é leitor 
 - Middleware de autenticação protegendo endpoints privados em `/api/me/*`
 - Catálogo com busca/filtros, leitura de capítulos, progresso e comentários
 - Publicação de histórias e capítulos pelo mesmo usuário logado
-- Modo confortável de leitura 
+- Modo confortável de Leitura
+- Modo Maratona de Leitura 
 - Persistência online opcional em Firebase Firestore
 
 ## Stack
