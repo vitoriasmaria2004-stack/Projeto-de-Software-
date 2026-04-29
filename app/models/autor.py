@@ -13,9 +13,9 @@ class EstatisticasAutor:
     """
     
     def __init__(self):
-        self._leitores_totais = 0
-        self._engajamento_total = 0
-        self._capitulos_publicados = 0
+        self._leitores_totais = 0  # Privado por convenção
+        self._engajamento_total = 0  # Privado por convenção
+        self._capitulos_publicados = 0  # Privado por convenção
 
     def adicionar_historia(self, historia: 'Historia'):
         """Atualiza estatísticas com os dados de uma história."""
