@@ -11,7 +11,8 @@ Plataforma web de leitura e autoria com conta híbrida (todo usuário é leitor 
 - Publicação de histórias e capítulos pelo mesmo usuário logado
 - Biblioteca Pessoal 
 - Modo confortável de Leitura
-- Modo Maratona de Leitura 
+- Modo Maratona de Leitura
+- Sistema de avaliação por capítulos 
 - Persistência online opcional em Firebase Firestore
 
 ## Stack
