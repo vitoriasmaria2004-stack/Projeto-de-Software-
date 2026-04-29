@@ -39,7 +39,7 @@ Quando configurado, o estado completo da aplicação é salvo e carregado do Fir
 
 ### 2) Configurar credenciais
 
-Você pode usar uma das opções:
+ Pode usar uma das opções:
 
 - `FIREBASE_SERVICE_ACCOUNT_PATH`: caminho para o JSON da service account
 - `FIREBASE_SERVICE_ACCOUNT_JSON`: conteúdo JSON da service account em string (bom para deploy)
